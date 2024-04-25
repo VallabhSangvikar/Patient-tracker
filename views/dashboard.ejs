@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Patient Records</title>
+  <style>
+    /* Reset and general styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  display: flex;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 250px;
+  background-color: #00b050;
+  color: #fff;
+  padding: 20px;
+}
+
+.sidebar-header {
+  margin-bottom: 20px;
+}
+
+.sidebar-menu {
+  list-style-type: none;
+}
+
+.sidebar-menu li {
+  margin-bottom: 10px;
+}
+
+.sidebar-menu a {
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-menu a i {
+  margin-right: 10px;
+}
+
+/* Content styles */
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.show-entries {
+  display: flex;
+  align-items: center;
+}
+
+.show-entries label {
+  margin-right: 10px;
+}
+
+.show-entries select {
+  padding: 5px;
+}
+
+.search-box input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #00b050;
+  color: #fff;
+}
+
+.btn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.btn-edit {
+  background-color: #ffc107;
+  color: #fff;
+  margin-right: 5px;
+}
+
+.btn-view {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination .btn {
+  background-color: #00b050;
+  color: #fff;
+  margin: 0 5px;
+}
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h3>PATIENT RECORDS</h3>
+    </div>
+    <ul class="sidebar-menu">
+      <li><a href="#"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
+      <li><a href="#"><i class="fas fa-table"></i>Patient Records Table</a></li>
+      <li><a href="#"><i class="fas fa-plus"></i>Add Records</a></li>
+      <li><a href="#"><i class="fas fa-user-plus"></i>Add Users</a></li>
+      <li><a href="#"><i class="fas fa-history"></i>User Logs</a></li>
+    </ul>
+  </div>
+  <div class="content">
+    <div class="table-header">
+      <div class="show-entries">
+        <label for="show-entries">Show</label>
+        <select id="show-entries">
+          <option value="10">10</option>
+          <option value="25">25</option>
+          <option value="50">50</option>
+          <option value="100">100</option>
+        </select>
+        <span>entries</span>
+      </div>
+      <div class="search-box">
+        <input type="text" placeholder="Search...">
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Case No.</th>
+          <th>Last Name</th>
+          <th>First Name</th>
+          <th>Middle Name</th>
+          <th>Gender</th>
+          <th>Age</th>
+          <th>Contact No.</th>
+          <th>Date Added</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>P-01</td>
+          <td>Hassan</td>
+          <td>Jenna</td>
+          <td>Castro</td>
+          <td>Female</td>
+          <td>26</td>
+          <td>09293932931</td>
+          <td>2019-03-13</td>
+          <td>
+            <button class="btn btn-edit">Edit</button>
+            <button class="btn btn-view">View</button>
+          </td>
+        </tr>
+        <!-- Add more table rows here -->
+      </tbody>
+    </table>
+    <div class="pagination">
+      <button class="btn btn-prev">Previous</button>
+      <span>1</span>
+      <button class="btn btn-next">Next</button>
+    </div>
+  </div>
+</body>
+</html>
