@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Out Patient Findings</title>
+  <style>
+    /* Reset and general styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  display: flex;
+}
+
+/* Sidebar styles */
+.sidebar {
+  width: 250px;
+  background-color: #00b050;
+  color: #fff;
+  padding: 20px;
+}
+
+.sidebar-header {
+  margin-bottom: 20px;
+}
+
+.sidebar-menu {
+  list-style-type: none;
+}
+
+.sidebar-menu li {
+  margin-bottom: 10px;
+}
+
+.sidebar-menu a {
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-menu a i {
+  margin-right: 10px;
+}
+
+/* Content styles */
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+h2 {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+textarea {
+  height: 100px;
+}
+
+.vital-signs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.vital-sign {
+  display: flex;
+  flex-direction: column;
+}
+
+.vital-sign label {
+  margin-bottom: 5px;
+}
+
+.vital-sign input {
+  padding: 5px;
+}
+
+.add-findings-btn {
+  background-color: #00b050;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <h3>PATIENT RECORDS</h3>
+    </div>
+    <ul class="sidebar-menu">
+      <li><a href="#"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
+      <li><a href="#"><i class="fas fa-table"></i>Patient Records Table</a></li>
+      <li><a href="#"><i class="fas fa-plus"></i>Add Records</a></li>
+      <li><a href="#"><i class="fas fa-user-plus"></i>Add Users</a></li>
+      <li><a href="#"><i class="fas fa-history"></i>User Logs</a></li>
+    </ul>
+  </div>
+  <div class="content">
+    <h2>Out Patient Findings</h2>
+    <div class="form-group">
+      <label for="patient-case">PATIENT CASE NUMBER</label>
+      <input type="text" id="patient-case" value="P-05" readonly>
+    </div>
+    <div class="form-group">
+      <label for="date">DATE</label>
+      <input type="text" id="date" value="05/19/2021" readonly>
+    </div>
+    <div class="form-group">
+      <label for="chief-complaint">CHIEF COMPLAINT</label>
+      <input type="text" id="chief-complaint" value="Covid">
+    </div>
+    <div class="form-group">
+      <label for="history-illness">HISTORY OF PRESENT ILLNESS</label>
+      <textarea id="history-illness" placeholder="Enter History of Present Illness"></textarea>
+    </div>
+    <div class="vital-signs">
+      <h3>VITAL SIGNS</h3>
+      <div class="vital-sign">
+        <label for="bp">Blood Pressure</label>
+        <input type="text" id="bp" placeholder="BP">
+      </div>
+      <div class="vital-sign">
+        <label for="rr">Respiratory Rate</label>
+        <input type="text" id="rr" placeholder="RR">
+      </div>
+      <div class="vital-sign">
+        <label for="cr">Capillary Refill</label>
+        <input type="text" id="cr" placeholder="CR">
+      </div>
+      <div class="vital-sign">
+        <label for="temp">Temperature</label>
+        <input type="text" id="temp" placeholder="TEMP">
+      </div>
+      <div class="vital-sign">
+        <label for="wt">Weight</label>
+        <input type="text" id="wt" placeholder="WT">
+      </div>
+      <div class="vital-sign">
+        <label for="pr">Pulse Rate</label>
+        <input type="text" id="pr" placeholder="PR">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="attending-physician">ATTENDING PHYSICIAN</label>
+      <select id="attending-physician">
+        <option value="">Select Physician</option>
+        <!-- Add options for physicians here -->
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="physical-exam">PHYSICAL EXAMINATION</label>
+      <textarea id="physical-exam" placeholder="Covid"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="diagnosis">DIAGNOSIS</label>
+      <textarea id="diagnosis" placeholder="Enter Diagnosis"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="medication-treatment">MEDICATION/TREATMENT</label>
+      <textarea id="medication-treatment" placeholder="Enter Medication/Treatment"></textarea>
+    </div>
+    <button class="add-findings-btn">Add Findings</button>
+  </div>
+</body>
+</html>
