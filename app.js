@@ -25,8 +25,7 @@ async function main() {
   await mongoose.connect('mongodb://127.0.0.1:27017/patient_tracker');
 }
 
-
 app.listen(port,()=>{
-    console.log(`server is running `);
+    console.log(`server is running ${port} `);
     
 });
