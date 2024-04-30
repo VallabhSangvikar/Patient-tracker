@@ -40,11 +40,16 @@ app.get("/dashboard",(req,res)=>{
 app.get("/addrecord",(req,res)=>{
   res.render("addRecord.ejs");
 })
+app.get("/doctors",(req,res)=>{
+  res.render("addDoctor.ejs");
+})
 
 app.post("/dashboard",(req,res)=>{
   console.log(req.body);
 })
-
+app.post("/",(req,res)=>{
+  console.log(req.body);
+})
 
 
 
