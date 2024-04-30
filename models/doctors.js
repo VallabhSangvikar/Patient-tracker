@@ -20,8 +20,11 @@ const doctorSchema=new Schema({
         type:Date,
         required:true
     },
-    opd_timing:{
-        type:TimeRanges
+    start_time:{
+        type:Number,
+    },
+    end_time:{
+        type:Number,
     },
     specialization:{
         type:String
@@ -36,3 +39,6 @@ const doctorSchema=new Schema({
         type:String
     }
 })
+
+const list= new mongoose.model("list",doctorSchema);
+module.exports= list;

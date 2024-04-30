@@ -26,6 +26,7 @@ async function main() {
 
 //including the schemas 
 const records=require("./models/records");
+const list=require("./models/doctors");
 
 // routing 
 app.get("/",(req,res)=>{
@@ -77,6 +78,30 @@ app.post("/dashboard",async(req,res)=>{
     let details= await records.find();
     res.render("dashboard.ejs",{details});
 })
+
+app.post("/doctorlist",async(req,res)=>{
+    let {hospital_name,doctor_name,age,gender,date_added,start_time,end_time,specialization,qualification,experience,contact}=req.body;
+    let listing=new list({
+      hospital_name:hospital_name,
+      doctor_name:doctor_name,
+      age:age,
+      gender:gender,
+      date_added:date_added,
+      start_time:start_time,
+      end_time:end_time,
+      specialization:specialization,
+      qualification:qualification,
+      experience:experience,
+      contact:contact,
+    })
+    await listing.save()
+    .then((res)=>{
+      console.log("doctors list saved successfully");
+    })
+    let list= await list.find();
+    res.render("doctorslist.ejs",{list});
+})
+
 app.post("/",(req,res)=>{
   console.log(req.body);
 })
