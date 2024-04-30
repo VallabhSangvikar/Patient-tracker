@@ -37,8 +37,9 @@ app.get("/login",(req,res)=>{
 app.get("/details",(req,res)=>{
   res.render("details.ejs");
 })
-app.get("/dashboard",(req,res)=>{
-  res.render("dashboard.ejs");
+app.get("/dashboard",async(req,res)=>{
+  let details=await records.find();
+  res.render("dashboard.ejs",{details});
 })
 app.get("/addrecord",(req,res)=>{
   res.render("addRecord.ejs");
@@ -47,7 +48,7 @@ app.get("/doctors",(req,res)=>{
   res.render("addDoctor.ejs");
 })
 
-app.post("/dashboard",(req,res)=>{
+app.post("/dashboard",async(req,res)=>{
     let {doctor_name,doctor_gender,doctor_age,doctor_phone,patient_caseNo, date,chief_complaint,physical_examination,history_of_illness,diagnosis,blood_pressure,respiratory_rate, capillary_refill,temperature,weight,pulse_rate,medication_treatment,physical_number}=req.body;
     let  patient_records= new records({
       doctor_name:doctor_name,
@@ -69,11 +70,12 @@ app.post("/dashboard",(req,res)=>{
       medication_treatment:medication_treatment,
       physical_number:physical_number,
     })
-    patient_records.save()
+    await patient_records.save()
     .then((res)=>{
       console.log("records data saved successfully");
     })
-    res.redirect("/dashboard");
+    let details= await records.find();
+    res.render("dashboard.ejs",{details});
 })
 app.post("/",(req,res)=>{
   console.log(req.body);

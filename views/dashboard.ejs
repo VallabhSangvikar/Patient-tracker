@@ -172,7 +172,7 @@
     <div class="table-header">
       <div class="show-entries">
 
-        <span>entries</span>
+        <span><b>Entries</b></span>
       </div>
       <div class="search-box">
         <input type="text" placeholder="Search...">
@@ -192,19 +192,20 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td>
-              <button class="btn btn-edit">Edit</button>
-              <a class="btn btn-view" href="/details">View</a>
-            </td>
-          </tr>
-          <!-- Add more table rows here -->
+          <% for( let i = 0; i < details.length; i++ ) { %>
+            <tr>
+              <td><%= details[i].patient_caseNo %></td>
+             <td><%= details[i].doctor_name %></td>
+             <td><%= details[i].doctor_gender %></td>
+             <td><%= details[i].doctor_age %></td>
+             <td><%= details[i].doctor_phone %></td>
+             <td><%= details[i].date %></td>
+             <td>
+               <button class="btn btn-edit">Edit</button>
+               <a class="btn btn-view" href="/details">View</a>
+             </td>
+           </tr>
+          <% } %>
         </tbody>
       </table>
     </div>
@@ -215,4 +216,12 @@
     </div>
   </div>
 </body>
+<!-- <script>
+   let tbody=document.querySelector("tbody");
+   let tr=document.createElement("tr");
+   tbody.appendChild(tr);
+   let td=document.createElement("td");
+   tr.appendChild(td);
+
+</script> -->
 </html>
