@@ -43,6 +43,9 @@ app.get("/dashboard",(req,res)=>{
 app.get("/addrecord",(req,res)=>{
   res.render("addRecord.ejs");
 })
+app.get("/doctors",(req,res)=>{
+  res.render("addDoctor.ejs");
+})
 
 app.post("/dashboard",(req,res)=>{
     let {doctor_name,doctor_gender,doctor_age,doctor_phone,patient_caseNo, date,chief_complaint,physical_examination,history_of_illness,diagnosis,blood_pressure,respiratory_rate, capillary_refill,temperature,weight,pulse_rate,medication_treatment,physical_number}=req.body;
@@ -72,7 +75,9 @@ app.post("/dashboard",(req,res)=>{
     })
     res.redirect("/dashboard");
 })
-
+app.post("/",(req,res)=>{
+  console.log(req.body);
+})
 
 
 
