@@ -41,6 +41,12 @@ app.get("/addrecord",(req,res)=>{
   res.render("addRecord.ejs");
 })
 
+app.post("/dashboard",(req,res)=>{
+  console.log(req.body);
+})
+
+
+
 
 app.listen(port,()=>{
     console.log(`server is running `);

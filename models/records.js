@@ -49,8 +49,9 @@ const recordsSchema = new Schema({
         type:String,
         required:true,
     },
-
-
+    physical_number:{
+        type:Number
+    }
 })
 
 const Records= new mongoose.model("Records",recordsSchema)

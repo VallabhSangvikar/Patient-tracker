@@ -135,78 +135,76 @@ textarea {
       <h3>PATIENT RECORDS</h3>
     </div>
     <ul class="sidebar-menu">
-      <li><a href="#"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
-      <li><a href="#"><i class="fas fa-table"></i>Patient Records Table</a></li>
-      <li><a href="#"><i class="fas fa-plus"></i>Add Records</a></li>
-      <li><a href="#"><i class="fas fa-user-plus"></i>Add Users</a></li>
-      <li><a href="#"><i class="fas fa-history"></i>User Logs</a></li>
+      <li><a href="/dashboard"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
+      <li><a href="/addrecord"><i class="fas fa-plus"></i>Add Records</a></li>
+      <li><a href="/addDoctor" style="background-color: #008037"><i class="fas fa-user-plus"></i>Add Doctor</a></li>
+      <li><a href="/login"><i class="fas fa-plus"></i>User Logs</a></li>
+      <li><a href="/about"><i class="fas fa-history"></i>About Us</a></li>
     </ul>
   </div>
-  <div class="content">
-    <h2>Out Patient Findings</h2>
+  <form class="content" action="/dashboard" method="post">
+    <h2>Add record</h2>
     <div class="form-group">
       <label for="patient-case">PATIENT CASE NUMBER</label>
-      <input type="text" id="patient-case" value="P-05" readonly>
+      <input type="text" id="patient-case" name="patient_caseNo">
     </div>
     <div class="form-group">
       <label for="date">DATE</label>
-      <input type="text" id="date" value="05/19/2021" readonly>
+      <input type="date" id="date" name="date" >
     </div>
     <div class="form-group">
       <label for="chief-complaint">CHIEF COMPLAINT</label>
-      <input type="text" id="chief-complaint" value="Covid">
+      <input type="text" id="chief-complaint" name="chief_complaint">
     </div>
     <div class="form-group">
       <label for="history-illness">HISTORY OF PRESENT ILLNESS</label>
-      <textarea id="history-illness" placeholder="Enter History of Present Illness"></textarea>
+      <textarea id="history-illness" placeholder="Enter History of Present Illness" name="history_of_illness"></textarea>
     </div>
     <div class="vital-signs">
       <h3>VITAL SIGNS</h3>
       <div class="vital-sign">
         <label for="bp">Blood Pressure</label>
-        <input type="text" id="bp" placeholder="BP">
+        <input type="text" id="bp" placeholder="BP" name="blood_pressure">
       </div>
       <div class="vital-sign">
         <label for="rr">Respiratory Rate</label>
-        <input type="text" id="rr" placeholder="RR">
+        <input type="text" id="rr" placeholder="RR" name="respiratory_rate">
       </div>
       <div class="vital-sign">
         <label for="cr">Capillary Refill</label>
-        <input type="text" id="cr" placeholder="CR">
+        <input type="text" id="cr" placeholder="CR" name="capillary_refill">
       </div>
       <div class="vital-sign">
         <label for="temp">Temperature</label>
-        <input type="text" id="temp" placeholder="TEMP">
+        <input type="text" id="temp" placeholder="TEMP" name="temperature">
       </div>
       <div class="vital-sign">
         <label for="wt">Weight</label>
-        <input type="text" id="wt" placeholder="WT">
+        <input type="text" id="wt" placeholder="WT" name="weight">
       </div>
       <div class="vital-sign">
         <label for="pr">Pulse Rate</label>
-        <input type="text" id="pr" placeholder="PR">
+        <input type="text" id="pr" placeholder="PR" name="pulse_rate">
       </div>
     </div>
     <div class="form-group">
       <label for="attending-physician">ATTENDING PHYSICIAN</label>
-      <select id="attending-physician">
-        <option value="">Select Physician</option>
-        <!-- Add options for physicians here -->
-      </select>
+      <input id="attending-physician" type="number" placeholder="xth time attending" min="1" name="physical_number">
+    </input>
     </div>
     <div class="form-group">
       <label for="physical-exam">PHYSICAL EXAMINATION</label>
-      <textarea id="physical-exam" placeholder="Covid"></textarea>
+      <textarea id="physical-exam" placeholder="" name="physical_examination"></textarea>
     </div>
     <div class="form-group">
       <label for="diagnosis">DIAGNOSIS</label>
-      <textarea id="diagnosis" placeholder="Enter Diagnosis"></textarea>
+      <textarea id="diagnosis" placeholder="Enter Diagnosis" name="diagnosis"></textarea>
     </div>
     <div class="form-group">
       <label for="medication-treatment">MEDICATION/TREATMENT</label>
-      <textarea id="medication-treatment" placeholder="Enter Medication/Treatment"></textarea>
+      <textarea id="medication-treatment" placeholder="Enter Medication/Treatment" name="medication_treatment"></textarea>
     </div>
     <button class="add-findings-btn">Add Findings</button>
-  </div>
+  </form>
 </body>
 </html>
