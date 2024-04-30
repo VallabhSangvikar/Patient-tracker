@@ -182,24 +182,18 @@
       <table>
         <thead>
           <tr>
-            <th>Case No.</th>
+            <th>Hospital Name</th>
             <th>Doctor's name</th>
-            <th>Gender</th>
-            <th>Age</th>
-            <th>Contact No.</th>
-            <th>Date Added</th>
+            <th>Specialization</th>
             <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <% for( let i = 0; i < details.length; i++ ) { %>
+          <% for( let i = 0; i < list.length; i++ ) { %>
             <tr>
-              <td><%= details[i].patient_caseNo %></td>
-             <td><%= details[i].doctor_name %></td>
-             <td><%= details[i].doctor_gender %></td>
-             <td><%= details[i].doctor_age %></td>
-             <td><%= details[i].doctor_phone %></td>
-             <td><%= details[i].date %></td>
+              <td><%= list[i].hospital_name %></td>
+             <td><%= list[i].doctor_name %></td>
+             <td><%= list[i].specialization %></td>
              <td>
                <button class="btn btn-edit">Edit</button>
                <a class="btn btn-view" href="/details">View</a>
@@ -216,5 +210,4 @@
     </div>
   </div>
 </body>
-
 </html>
