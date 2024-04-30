@@ -26,7 +26,8 @@ async function main() {
 
 //including the schemas 
 const records=require("./models/records");
-const list=require("./models/doctors");
+
+const lists = require("./models/doctors");
 
 // routing 
 app.get("/",(req,res)=>{
@@ -47,6 +48,10 @@ app.get("/addrecord",(req,res)=>{
 })
 app.get("/doctors",(req,res)=>{
   res.render("addDoctor.ejs");
+})
+app.get("/doctorslist",async(req,res)=>{
+  let list=await lists.find();
+  res.render("doctorslist.ejs",{list});
 })
 
 app.post("/dashboard",async(req,res)=>{
@@ -98,7 +103,7 @@ app.post("/doctorlist",async(req,res)=>{
     .then((res)=>{
       console.log("doctors list saved successfully");
     })
-    let list= await list.find();
+    let list= await lists.find();
     res.render("doctorslist.ejs",{list});
 })
 
