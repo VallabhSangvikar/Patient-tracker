@@ -6,6 +6,18 @@ const recordsSchema = new Schema({
         type:String,
         required:true,
     },
+    doctor_gender:{
+        type:String,
+        required:true,
+    },
+    doctor_age:{
+        type:Number,
+        required:true,
+    },
+    doctor_phone:{
+        type:Number,
+        required:true,
+    },
     patient_caseNo:{
         type:String,
     },
