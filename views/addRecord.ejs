@@ -24,10 +24,17 @@ body {
   background-color: #00b050;
   color: #fff;
   padding: 20px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  overflow-y: auto;
+  transition: all 0.3s ease;
 }
 
 .sidebar-header {
   margin-bottom: 20px;
+  text-align: center;
 }
 
 .sidebar-menu {
@@ -43,16 +50,26 @@ body {
   text-decoration: none;
   display: flex;
   align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.sidebar-menu a:hover,
+.sidebar-menu a.active {
+  background-color: #008037;
 }
 
 .sidebar-menu a i {
   margin-right: 10px;
+  font-size: 18px;
 }
 
 /* Content styles */
 .content {
   flex: 1;
   padding: 20px;
+  margin-left: 250px; /* Add this line to create space for the sidebar */
 }
 
 h2 {
@@ -121,7 +138,7 @@ textarea {
       <li><a href="/dashboard"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
       <li><a href=""><i class="fas fa-plus"></i>Add Records</a></li>
       <li><a href=""><i class="fas fa-user-plus"></i>Add Users</a></li>
-      <li><a href="/login"><i class="fas fa-history"></i>User Logs</a></li>
+      <li><a href="/"><i class="fas fa-history"></i>User Logs</a></li>
     </ul>
   </div>
   <div class="content">

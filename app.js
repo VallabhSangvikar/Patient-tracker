@@ -25,7 +25,23 @@ async function main() {
   await mongoose.connect('mongodb://127.0.0.1:27017/patient_tracker');
 }
 
+app.get("/",(req,res)=>{
+  res.render("login.ejs");
+})
+app.get("/login",(req,res)=>{
+  res.render("login.ejs");
+})
+app.get("/details",(req,res)=>{
+  res.render("details.ejs");
+})
+app.get("/dashboard",(req,res)=>{
+  res.render("dashboard.ejs");
+})
+app.get("/addrecord",(req,res)=>{
+  res.render("addRecord.ejs");
+})
+
 app.listen(port,()=>{
-    console.log(`server is running ${port} `);
+    console.log(`server is running `);
     
 });
