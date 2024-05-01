@@ -133,13 +133,17 @@
 
     .btn-edit {
       background-color: #ffc107;
-      color: #fff;
+      color: #000000;
       margin-right: 5px;
+      text-decoration: none;
+      font-weight: bold;
     }
 
     .btn-view {
       background-color: #007bff;
-      color: #fff;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: bold;
     }
 
     .pagination {
@@ -202,7 +206,7 @@
              <td><%= details[i].doctor_phone %></td>
              <td><%= details[i].date %></td>
              <td>
-               <button class="btn btn-edit">Edit</button>
+               <a class="btn btn-edit" href="/edit/<%= details[i]._id %>">Edit</a>
                <a class="btn btn-view" href="/details/<%= details[i]._id %>">View</a>
              </td>
            </tr>
