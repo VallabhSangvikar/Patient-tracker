@@ -115,12 +115,16 @@ body {
   padding: 10px;
   border-radius: 5px;
   background-color: #f9f9f9;
-  transition: background-color 0.3s ease;
+  transition:  0.3s ease;
 }
 
 .detail-item:hover,
 .finding-item:hover {
   background-color: #e9e9e9;
+}
+.value{
+  color: #008037;
+  font-weight: bold;
 }
 
 .label {
@@ -223,7 +227,10 @@ h2 {
           <span>Add Doctor</span>
         </a>
       </li>
-      <li><a href="doctorslist" class="sidebar-link"><i class="fas fa-user-plus"></i>Doctors list</a></li>
+      <li><a href="doctorslist" class="sidebar-link">
+        <i class="fas fa-user-plus">
+        </i>Doctors list</a>
+      </li>
       <li>
         <a href="/login" class="sidebar-link">
           <i class="fas fa-history"></i>
@@ -239,8 +246,6 @@ h2 {
     </ul>
   </div>
 
-
-
     <div class="opd-findings">
       <div class="success-message">
         <i class="fas fa-check-circle"></i>
@@ -249,58 +254,58 @@ h2 {
       </div>
       <h2>OUT DOCTOR FINDINGS</h2>
       <div class="finding-item">
-        <span class="label">CASE NO.</span>
-        <span class="value"></span>
+        <span class="label">CASE NO. <span class="value" style="margin-left: 40px;"><%=recordinfo.patient_caseNo %></span></span>
+        
       </div>
       <div class="finding-item">
-        <span class="label">DOCTOR'S NAME</span>
-        <span class="value"></span>
+        <span class="label">DOCTOR'S NAME <span class="value" style="margin-left: 40px;"><%=recordinfo.doctor_name %></span></span>
+        
       </div>
       <div class="finding-item">
         <span class="label">HISTORY OF PRESENT ILLNESS:</span>
-        <span class="value"  style="height: 5rem;"></span>
+        <span class="value"  style="height: 5rem; margin-left: 20px;"><%=recordinfo.history_of_illness %></span>
       </div>
       <div class="finding-item">
-      <span class="label">DATE CONSULTED:</span>
-      <span class="date-consulted"></span>
+      <span class="label">DATE CONSULTED:<span class="value" style="margin-left: 40px;"><%=recordinfo.date %></span></span>
+      
       </div>
       <div class="vital-signs">
         <div class="vital-sign">
           <span class="label">BLOOD PRESSURE</span>
-          <span class="value"></span>
+          <span class="value"><%=recordinfo.blood_pressure %></span>
         </div>
         <div class="vital-sign">
           <span class="label">RESPIRATORY RATE</span>
-          <span class="value"></span>
+          <span class="value"><%=recordinfo.respiratory_rate %></span>
         </div>
         <div class="vital-sign">
           <span class="label">CAPILLARY REFILL</span>
-          <span class="value"></span>
+          <span class="value"><%=recordinfo.capillary_refill %></span>
         </div>
         <div class="vital-sign">
           <span class="label">TEMPERATURE</span>
-          <span class="value"></span>
+          <span class="value"><%=recordinfo.temperature %></span>
         </div>
         <div class="vital-sign">
           <span class="label">PULSE RATE</span>
-          <span class="value"></span>
+          <span class="value"><%=recordinfo.pulse_rate %></span>
         </div>
         <div class="vital-sign">
           <span class="label">WEIGHT</span>
-          <span class="value"></span>
+          <span class="value"><%=recordinfo.weight %></span>
         </div>
       </div>
       <div class="finding-item">
         <span class="label">PHYSICAL EXAMINATION:</span>
-        <span class="value" style="height: 5rem;"></span>
+        <span class="value" style="height: 5rem;"><%=recordinfo.physical_examination %></span>
       </div>
       <div class="finding-item">
         <span class="label">DIAGNOSIS:</span>
-        <span class="value" style="height: 5rem;"></span>
+        <span class="value" style="height: 5rem; margin-left: 20px;" ><%=recordinfo.diagnosis %></span>
       </div>
       <div class="finding-item">
         <span class="label">MEDICATION/TREATMENT:</span>
-        <span class="value" style="height: 5rem;"></span>
+        <span class="value" style="height: 5rem; margin-left: 20px;"><%=recordinfo.medication_treatment %></span>
       </div>
     </div>
   </div>
