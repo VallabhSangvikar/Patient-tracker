@@ -36,8 +36,10 @@ app.get("/",(req,res)=>{
 app.get("/login",(req,res)=>{
   res.render("login.ejs");
 })
-app.get("/details",(req,res)=>{
-  res.render("details.ejs");
+app.get("/details/:id",async(req,res)=>{
+  let {id}=req.params;
+  let recordinfo=await records.findById(id);
+  res.render("details.ejs",{id,recordinfo});
 })
 app.get("/dashboard",async(req,res)=>{
   let details=await records.find();
@@ -55,14 +57,21 @@ app.get("/doctorslist",async(req,res)=>{
 })
 
 app.post("/dashboard",async(req,res)=>{
-    let {doctor_name,doctor_gender,doctor_age,doctor_phone,patient_caseNo, date,chief_complaint,physical_examination,history_of_illness,diagnosis,blood_pressure,respiratory_rate, capillary_refill,temperature,weight,pulse_rate,medication_treatment,physical_number}=req.body;
+    let {doctor_name,doctor_gender,doctor_age,
+        doctor_phone,patient_caseNo,date,
+        chief_complaint,physical_examination,history_of_illness,
+        diagnosis,blood_pressure,respiratory_rate, capillary_refill,
+        temperature,weight,pulse_rate,medication_treatment,physical_number}=req.body;
+
+        const formattedDate = new Date(date).toISOString().slice(0, 10);
+
     let  patient_records= new records({
       doctor_name:doctor_name,
       doctor_gender:doctor_gender,
       doctor_age:doctor_age,
       doctor_phone:doctor_phone,
       patient_caseNo:patient_caseNo,
-      date:date,
+      date:formattedDate,
       chief_complaint:chief_complaint,
       physical_examination:physical_examination,
       history_of_illness:history_of_illness,
@@ -85,13 +94,17 @@ app.post("/dashboard",async(req,res)=>{
 })
 
 app.post("/doctorlist",async(req,res)=>{
-    let {hospital_name,doctor_name,age,gender,date_added,start_time,end_time,specialization,qualification,experience,contact}=req.body;
+
+    let {hospital_name,doctor_name,age,gender,date_added,
+        start_time,end_time,specialization,qualification,
+        experience,contact}=req.body;
+        const formattedDate2 = new Date(date_added).toISOString().slice(0, 10);
     let listing=new lists({
       hospital_name:hospital_name,
       doctor_name:doctor_name,
       age:age,
       gender:gender,
-      date_added:date_added,
+      date_added:formattedDate2,
       start_time:start_time,
       end_time:end_time,
       specialization:specialization,

@@ -22,7 +22,7 @@ const recordsSchema = new Schema({
         type:String,
     },
     date:{
-        type:Date,
+        type:String,
         required:true,
     },
     chief_complaint:{

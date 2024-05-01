@@ -183,27 +183,27 @@
             <h3>VITAL SIGNS</h3>
             <div class="vital-sign">
               <label for="bp">Blood Pressure</label>
-              <input type="text" id="bp" placeholder="BP" name="blood_pressure">
+              <input type="number" id="bp" placeholder="BP in mmHg" name="blood_pressure" min="80" >
             </div>
             <div class="vital-sign">
               <label for="rr">Respiratory Rate</label>
-              <input type="text" id="rr" placeholder="RR" name="respiratory_rate">
+              <input type="number" id="rr" placeholder="RR /minute" name="respiratory_rate" min="10" >
             </div>
             <div class="vital-sign">
               <label for="cr">Capillary Refill</label>
-              <input type="text" id="cr" placeholder="CR" name="capillary_refill">
+              <input type="number" id="cr" placeholder="CRT" name="capillary_refill" min="1">
             </div>
             <div class="vital-sign">
               <label for="temp">Temperature</label>
-              <input type="text" id="temp" placeholder="TEMP" name="temperature">
+              <input type="number" id="temp" placeholder="TEMP in degree C" name="temperature" min="95">
             </div>
             <div class="vital-sign">
               <label for="wt">Weight</label>
-              <input type="text" id="wt" placeholder="WT" name="weight">
+              <input type="number" id="wt" placeholder="Weight in kg" name="weight" min="0">
             </div>
             <div class="vital-sign">
               <label for="pr">Pulse Rate</label>
-              <input type="text" id="pr" placeholder="PR" name="pulse_rate">
+              <input type="number" id="pr" placeholder="PR" name="pulse_rate" min="50">
             </div>
           </div>
           <div class="form-group">
