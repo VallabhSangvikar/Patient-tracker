@@ -50,9 +50,14 @@ app.get("/doctors",(req,res)=>{
   res.render("addDoctor.ejs");
 })
 app.get("/doctorslist",async(req,res)=>{
-  let list=await lists.find();
+  let list= await lists.find(); 
   res.render("doctorslist.ejs",{list});
 })
+app.get("/doctordetails/:id",async(req,res)=>{
+  let {id}= req.params;
+  let doctorinfo=await lists.findById(id);
+  res.render("doctordetail.ejs",{doctorinfo});
+});
 
 app.post("/dashboard",async(req,res)=>{
     let {doctor_name,doctor_gender,doctor_age,doctor_phone,patient_caseNo, date,chief_complaint,physical_examination,history_of_illness,diagnosis,blood_pressure,respiratory_rate, capillary_refill,temperature,weight,pulse_rate,medication_treatment,physical_number}=req.body;

@@ -17,7 +17,7 @@ const doctorSchema=new Schema({
         type:String
     },
     date_added:{
-        type:Date,
+        type:String,
         required:true
     },
     start_time:{

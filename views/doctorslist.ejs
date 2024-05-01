@@ -197,7 +197,8 @@
              <td><%= list[i].specialization %></td>
              <td>
                <button class="btn btn-edit">Edit</button>
-               <a class="btn btn-view" href="/details">View</a>
+               <a class="btn btn-view" href="/doctordetails/<%= list[i].id %>">View</a>
+               <!-- <a class="btn btn-view" href="/doctordetails">View</a> -->
              </td>
            </tr>
           <% } %>

@@ -247,60 +247,52 @@ h2 {
         <span></span>
         <i class="fas fa-times-circle close-btn"></i>
       </div>
-      <h2>OUT DOCTOR FINDINGS</h2>
+      <h2>DOCTOR DETAILS</h2>
       <div class="finding-item">
-        <span class="label">CASE NO.</span>
-        <span class="value"></span>
+        <span class="label">HOSPITAL NAME:<span class="value" style="padding-left: 25px;"><%=doctorinfo.hospital_name%></span></span>
+
       </div>
       <div class="finding-item">
-        <span class="label">DOCTOR'S NAME</span>
-        <span class="value"></span>
+        <span class="label">DOCTOR'S NAME:<span class="value" style="padding-left: 25px;"><%= doctorinfo.doctor_name %></span></span>
       </div>
       <div class="finding-item">
-        <span class="label">HISTORY OF PRESENT ILLNESS:</span>
-        <span class="value"  style="height: 5rem;"></span>
+        <span class="label">AGE:<span class="value" style="padding-left: 25px;"><%= doctorinfo.age %></span></span>
       </div>
       <div class="finding-item">
-      <span class="label">DATE CONSULTED:</span>
-      <span class="date-consulted"></span>
+      <span class="label">DATE CONSULTED:<span class="value" style="padding-left: 25px;"><%= doctorinfo.date %></span></span>
       </div>
       <div class="vital-signs">
         <div class="vital-sign">
-          <span class="label">BLOOD PRESSURE</span>
-          <span class="value"></span>
+          <span class="label">GENDER:<span class="value" style="padding-left: 25px;"><%= doctorinfo.gender %></span></span>
         </div>
         <div class="vital-sign">
-          <span class="label">RESPIRATORY RATE</span>
-          <span class="value"></span>
+          <span class="label">START TIME:<span class="value" style="padding-left: 25px;"><%= doctorinfo.start_time %></span></span>
         </div>
         <div class="vital-sign">
-          <span class="label">CAPILLARY REFILL</span>
-          <span class="value"></span>
+          <span class="label">END TIME:<span class="value" style="padding-left: 25px;"><%= doctorinfo.end_time %></span></span>
         </div>
         <div class="vital-sign">
-          <span class="label">TEMPERATURE</span>
+          <span class="label">CONTACT NO:<span class="value" style="padding-left: 25px;"><%= doctorinfo.contact %></span></span>
           <span class="value"></span>
         </div>
-        <div class="vital-sign">
+        <!-- <div class="vital-sign">
           <span class="label">PULSE RATE</span>
           <span class="value"></span>
         </div>
         <div class="vital-sign">
           <span class="label">WEIGHT</span>
           <span class="value"></span>
-        </div>
+        </div> -->
       </div>
       <div class="finding-item">
-        <span class="label">PHYSICAL EXAMINATION:</span>
-        <span class="value" style="height: 5rem;"></span>
+        <span class="label">SPECIALIZATION:<span class="value" style="padding-left: 25px;"><%= doctorinfo.specialization %></span></span>
+        <!-- <span class="value" style="height: 5rem;"></span> -->
       </div>
       <div class="finding-item">
-        <span class="label">DIAGNOSIS:</span>
-        <span class="value" style="height: 5rem;"></span>
+        <span class="label">QUALIFICATION:<span class="value" style="padding-left: 25px;"><%= doctorinfo.qualification %></span></span>
       </div>
       <div class="finding-item">
-        <span class="label">MEDICATION/TREATMENT:</span>
-        <span class="value" style="height: 5rem;"></span>
+        <span class="label">EXPERIENCE:<span class="value" style="padding-left: 25px; height:5rem;" ><%= doctorinfo.experience %></span></span>
       </div>
     </div>
   </div>
