@@ -60,7 +60,7 @@ app.get("/doctordetails/:id",async(req,res)=>{
   let doctorinfo=await lists.findById(id);
   res.render("doctordetail.ejs",{doctorinfo});
 });
-
+//app.post 
 app.post("/dashboard",async(req,res)=>{
     let {doctor_name,doctor_gender,doctor_age,
         doctor_phone,patient_caseNo,date,
@@ -124,6 +124,14 @@ app.post("/doctorlist",async(req,res)=>{
     let list= await lists.find();
     res.render("doctorslist.ejs",{list});
 })
+
+app.delete("/doctorslist/:id",async(req,res)=>{
+  let {id}=req.params;
+  await lists.findByIdAndDelete(id);
+  res.redirect("/doctorslist");
+
+})
+
 
 app.post("/",(req,res)=>{
   console.log(req.body);
