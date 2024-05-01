@@ -21,10 +21,10 @@ const doctorSchema=new Schema({
         required:true
     },
     start_time:{
-        type:Number,
+        type:String,
     },
     end_time:{
-        type:Number,
+        type:String,
     },
     specialization:{
         type:String

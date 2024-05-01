@@ -86,7 +86,7 @@ app.post("/dashboard",async(req,res)=>{
 
 app.post("/doctorlist",async(req,res)=>{
     let {hospital_name,doctor_name,age,gender,date_added,start_time,end_time,specialization,qualification,experience,contact}=req.body;
-    let listing=new list({
+    let listing=new lists({
       hospital_name:hospital_name,
       doctor_name:doctor_name,
       age:age,
