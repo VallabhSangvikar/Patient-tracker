@@ -202,7 +202,7 @@
              <td><%= details[i].doctor_phone %></td>
              <td><%= details[i].date %></td>
              <td>
-               <button class="btn btn-edit">Edit</button>
+               <a class="btn btn-edit" href="/edit/<%= details[i]._id %>">Edit</a>
                <a class="btn btn-view" href="/details/<%= details[i]._id %>">View</a>
              </td>
            </tr>

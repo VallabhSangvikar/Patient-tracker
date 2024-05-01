@@ -61,6 +61,12 @@ app.get("/doctordetails/:id",async(req,res)=>{
   res.render("doctordetail.ejs",{doctorinfo});
 });
 
+app.get("/edit/:id",async(req,res)=>{
+  let {id}=req.params;
+  let editinfo=await records.findById(id);
+  res.render("editRecord.ejs",{editinfo,id});
+})
+
 app.post("/dashboard",async(req,res)=>{
     let {doctor_name,doctor_gender,doctor_age,
         doctor_phone,patient_caseNo,date,
@@ -125,11 +131,11 @@ app.post("/doctorlist",async(req,res)=>{
     res.render("doctorslist.ejs",{list});
 })
 
-app.post("/",(req,res)=>{
-  console.log(req.body);
+app.patch("/dashboard/:id",async(req,res)=>{
+  let {id}=req.params;
+  await records.findByIdAndUpdate(id,req.body);
+  res.redirect("/dashboard");
 })
-
-
 
 app.listen(port,()=>{
     console.log(`server is running `);
