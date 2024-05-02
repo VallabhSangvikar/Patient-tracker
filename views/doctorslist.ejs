@@ -48,21 +48,22 @@
              <td><%= list[i].specialization %></td>
              <td style="display: flex;">
               <form action="/doctorslist/<%= list[i].id %>?_method=DELETE" method="post">
-               <button class="btn btn-remove">Remove</button>
+               <button class="btn btn-remove remove">Remove</button>
               </form> 
                <a class="btn btn-view" style="text-decoration: none;" href="/doctordetails/<%= list[i].id %>">View</a>
-               <!-- <a class="btn btn-view" href="/doctordetails">View</a> -->
              </td>
            </tr>
           <% } %>
         </tbody>
       </table>
     </div>
-    <div class="pagination">
-      <button class="btn btn-prev">Previous</button>
-      <span>1</span>
-      <button class="btn btn-next">Next</button>
-    </div>
   </div>
 </body>
+<script>
+  let removebtns=document.querySelectorAll(".remove");
+  removebtns.forEach((removebtn)=>{
+  removebtn.addEventListener('click',()=>{
+    alert("warning ! you can't get removed data");
+  })});
+</script>
 </html>
