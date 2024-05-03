@@ -4,6 +4,7 @@ const path=require("path");
 const port=4000;
 const methodOverride=require("method-override");
 
+
 // prerequisites for the views and method
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({extended:true}));
@@ -143,6 +144,15 @@ app.patch("/dashboard/:id",async(req,res)=>{
   await records.findByIdAndUpdate(id,req.body);
   res.redirect("/dashboard");
 });
+
+
+const session = require("express-session");
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+
+}));
 
 app.listen(port,()=>{
     console.log(`server is running `);
