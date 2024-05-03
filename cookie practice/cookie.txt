@@ -44,3 +44,39 @@ app.get("/verifysignedcookie",(req,res)=>{
   // console.log(req.cookies); prints {} empty object for signed cookie
   console.log(req.signedCookies);  
 })
+
+//res.locals applications used in the routing 
+
+
+const session=require("express-session");
+const flash = require("connect-flash");
+const { name } = require("ejs");
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,}));
+
+  app.use(flash());
+
+  app.use("/verify",(req,res,next)=>{
+    res.locals.successmsg=req.flash("success"); 
+    res.locals.failuremsg=req.flash("error");
+    next();
+  })
+  app.get("/sign",(req,res)=>{
+    let {name="anonymous"}=req.query;
+    req.session.name=name;
+    if(name=="anonymous"){
+      req.flash("error","user not logged in");
+    }
+    else{
+    req.flash("success","user logged in");
+  }
+
+
+    res.send(`hello user,${name}`);
+  })
+  app.get("/verify",(req,res)=>{
+   res.render("timepass.ejs",{name:req.session.name});
+  })
