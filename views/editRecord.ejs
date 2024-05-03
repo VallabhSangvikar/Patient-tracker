@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Out Patient Findings</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/editRecord.css">
 </head>
 <body>
@@ -25,10 +26,10 @@
       <div class="add-record-section">
 
         <form action="/dashboard/<%=id%>?_method=PATCH" method="post">
-          <h2 style="color: red;">Edit Record</h2>
+          <h2 style="color: rgb(255, 153, 0);">Edit Record</h2>
           <div class="form-group">
             <label for="patient-case">PATIENT CASE NUMBER</label>
-            <input type="text" id="patient-case" name="patient_caseNo" value="<%=editinfo.patient_caseNo %>" required>
+            <input type="text" id="patient-case" name="patient_cas  eNo" value="<%=editinfo.patient_caseNo %>" required>
           </div>
           <div class="form-group">
             <label for="date">DATE</label>
@@ -87,7 +88,7 @@
           </div>
         </div>
         <div class="doctor-details-section">
-          <h2 style="color: red;">Edit Doctor Details</h2>
+          <h2 style="color:rgb(255, 153, 0)">Edit Doctor Details</h2>
           <div class="form-group">
             <label for="doctor-name">Doctor's Name</label>
             <input type="text" id="doctor-name" name="doctor_name" value="<%=editinfo.doctor_name %>" required>
@@ -108,7 +109,7 @@
             <label for="doctor-phone">Doctor's Phone Number</label>
             <input type="tel" id="doctor-phone" name="doctor_phone" value="<%=editinfo.doctor_phone %>" pattern="[0-9]{10}" required>
             </div>
-            <button type="submit" class="add-findings-btn" style="background-color: red;">Edit</button>
+            <button type="submit" class="btn btn-warning " style="background-color:rgb(255, 162, 0)">Edit</button>
         </form>
 
           </div>

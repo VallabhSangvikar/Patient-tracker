@@ -138,15 +138,3 @@ th {
   text-decoration: none;
   font-weight: bold;
 }
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.pagination .btn {
-  background-color: #00b050;
-  color: #fff;
-  margin: 0 5px;
-}

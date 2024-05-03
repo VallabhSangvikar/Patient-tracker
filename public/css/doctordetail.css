@@ -194,3 +194,7 @@ cursor: pointer;
 font-size: 12px;
 margin-left: 10px;
 }
+
+.value{
+    color: #008037;
+}

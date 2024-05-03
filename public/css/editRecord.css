@@ -64,7 +64,7 @@
     justify-content: space-between;
   }
   .add-record-section{
-      z-index: 2;
+      z-index: 4;
   }
   .add-record-section,
   .doctor-details-section {
