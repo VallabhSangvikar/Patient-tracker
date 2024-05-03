@@ -25,6 +25,9 @@ body {
   overflow-y: auto;
   transition: all 0.3s ease;
 }
+h3{
+  margin-left: 40px;
+}
 
 .sidebar-header {
   margin-bottom: 20px;
@@ -137,16 +140,4 @@ th {
   color: #ffffff;
   text-decoration: none;
   font-weight: bold;
-}
-
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.pagination .btn {
-  background-color: #00b050;
-  color: #fff;
-  margin: 0 5px;
 }

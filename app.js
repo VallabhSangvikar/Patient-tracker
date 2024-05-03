@@ -16,6 +16,12 @@ app.use(session({
 }));
 
 app.use(flash());
+
+app.use((req,res,next)=>{
+  res.locals.edit=req.flash("edit");
+  next();
+})
+
 app.use((req,res,next)=>{
   res.locals.remove=req.flash("remove");
   next();
@@ -58,6 +64,7 @@ app.get("/details/:id",async(req,res)=>{
   let recordinfo=await records.findById(id);
   res.render("details.ejs",{id,recordinfo});
 })
+
 app.get("/dashboard",async(req,res)=>{
   let details=await records.find();
   res.render("dashboard.ejs",{details});
@@ -159,6 +166,7 @@ app.delete("/doctorslist/:id",async(req,res)=>{
 app.patch("/dashboard/:id",async(req,res)=>{
   let {id}=req.params;
   await records.findByIdAndUpdate(id,req.body);
+  req.flash("edit","Edited details successfully");
   res.redirect("/dashboard");
 });
 
