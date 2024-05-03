@@ -7,6 +7,19 @@ const session=require("express-session");
 const cookieParser=require("cookie-parser");
 const flash=require("connect-flash");
 
+// session requisites
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}));
+
+app.use(flash());
+app.use((req,res,next)=>{
+  res.locals.remove=req.flash("remove");
+  next();
+});
 
 // prerequisites for the views and method
 app.use(methodOverride("_method"));
@@ -32,14 +45,6 @@ async function main() {
 const records=require("./models/records");
 
 const lists = require("./models/doctors");
-
-// session requisites
-
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true
-}));
 
 // routing 
 app.get("/",(req,res)=>{
@@ -146,6 +151,7 @@ app.post("/doctorlist",async(req,res)=>{
 app.delete("/doctorslist/:id",async(req,res)=>{
   let {id}=req.params;
   await lists.findByIdAndDelete(id);
+  req.flash("remove","Removed the doctor's detail successfully");
   res.redirect("/doctorslist");
 
 })
@@ -155,6 +161,11 @@ app.patch("/dashboard/:id",async(req,res)=>{
   await records.findByIdAndUpdate(id,req.body);
   res.redirect("/dashboard");
 });
+
+//remove button alert
+
+
+
 
 app.listen(port,()=>{
     console.log(`server is running `);
