@@ -7,6 +7,7 @@ const session=require("express-session");
 const cookieParser=require("cookie-parser");
 const flash=require("connect-flash");
 
+
 // prerequisites for the views and method
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({extended:true}));
@@ -155,8 +156,6 @@ app.patch("/dashboard/:id",async(req,res)=>{
   res.redirect("/dashboard");
 });
 
-
 app.listen(port,()=>{
     console.log(`server is running `);
-    
 });
