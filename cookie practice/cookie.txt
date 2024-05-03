@@ -1,0 +1,46 @@
+initializing Session cookie
+
+const session=require('express-session');
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+}))
+
+app.get("/getcookie",(req,res)=>{
+  session.Cookie({secret:'xyzest'});
+  if(session.Cookie.count){
+    session.Cookie.count++;
+  }else{
+    session.Cookie.count=1;
+  }
+  res.send(`visiting the page ${session.Cookie.count} time`);
+})
+
+
+sending normal cookie
+
+const cookieParser=require("cookie-parser");
+app.use(cookieParser('kjdscn'));
+app.get("/cookie",(req,res)=>{
+  res.cookie('hello','dsdsc');
+  res.send("getting cookie")
+})
+app.get("/verify",(req,res)=>{
+  console.log(req.cookies);
+})
+
+
+sending signed cookie
+
+const cookieParser=require("cookie-parser");
+app.use(cookieParser('helloworld'));
+app.get("/getsignedcookie",(req,res)=>{
+  res.cookie("hello",'cookie',{signed:true});
+  res.send("cookie sent successfully");
+})
+app.get("/verifysignedcookie",(req,res)=>{
+  // console.log(req.cookies); prints {} empty object for signed cookie
+  console.log(req.signedCookies);  
+})
