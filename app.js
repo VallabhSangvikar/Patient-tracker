@@ -3,6 +3,9 @@ const app=express();
 const path=require("path");
 const port=4000;
 const methodOverride=require("method-override");
+const session=require("express-session");
+const cookieParser=require("cookie-parser");
+const flash=require("connect-flash");
 
 // prerequisites for the views and method
 app.use(methodOverride("_method"));
@@ -28,6 +31,14 @@ async function main() {
 const records=require("./models/records");
 
 const lists = require("./models/doctors");
+
+// session requisites
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}));
 
 // routing 
 app.get("/",(req,res)=>{

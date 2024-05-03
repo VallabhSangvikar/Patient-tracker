@@ -44,3 +44,46 @@ app.get("/verifysignedcookie",(req,res)=>{
   // console.log(req.cookies); prints {} empty object for signed cookie
   console.log(req.signedCookies);  
 })
+
+
+session usage 
+
+const session=require("express-session");
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+}))
+app.get("/sign",(req,res)=>{
+  let {name='anonymous'}=req.query;
+  req.session.name=name;
+  res.send("hello user");
+})
+app.get("/user",(req,res)=>{
+  res.send("user signed");
+  console.log(req.session.name);
+})
+
+
+usage of flash 
+we must use session before using the flash
+
+const session=require("express-session");
+const flash=require("connect-flash");
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+}))
+app.use(flash());
+
+app.get("/sign",(req,res)=>{
+  let {name='ram'}=req.query;
+  req.session.name=name;
+  req.flash("registered","successfully done registeration");
+  res.send("hello user");
+})
+app.get("/verify",(req,res)=>{
+  let msg=req.flash("registered");
+  res.send(`<p>${msg}</p>hello ${req.session.name}`);
+})
