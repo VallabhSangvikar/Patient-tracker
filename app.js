@@ -146,14 +146,6 @@ app.patch("/dashboard/:id",async(req,res)=>{
 });
 
 
-const session = require("express-session");
-app.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-
-}));
-
 app.listen(port,()=>{
     console.log(`server is running `);
     
