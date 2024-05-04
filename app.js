@@ -16,6 +16,10 @@ app.use(session({
 }));
 
 app.use(flash());
+app.use((req,res,next)=>{
+  res.locals.addDoctor=req.flash("addDoctor");
+  next();
+});
 
 app.use((req,res,next)=>{
   res.locals.edit=req.flash("edit");
@@ -26,6 +30,8 @@ app.use((req,res,next)=>{
   res.locals.remove=req.flash("remove");
   next();
 });
+
+
 
 // prerequisites for the views and method
 app.use(methodOverride("_method"));
@@ -152,7 +158,8 @@ app.post("/doctorlist",async(req,res)=>{
       console.log("doctors list saved successfully");
     })
     let list= await lists.find();
-    res.render("doctorslist.ejs",{list});
+    req.flash("addDoctor","Doctor details added Successfully");
+    res.render("doctorslist.ejs",{list,addDoctor:req.flash("addDoctor")});
 })
 
 app.delete("/doctorslist/:id",async(req,res)=>{
@@ -160,8 +167,7 @@ app.delete("/doctorslist/:id",async(req,res)=>{
   await lists.findByIdAndDelete(id);
   req.flash("remove","Removed the doctor's detail successfully");
   res.redirect("/doctorslist");
-
-})
+});
 
 app.patch("/dashboard/:id",async(req,res)=>{
   let {id}=req.params;
