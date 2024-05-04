@@ -26,7 +26,7 @@
       <div class="add-record-section">
 
         <form action="/dashboard/<%=id%>?_method=PATCH" method="post">
-          <h2 style="color: rgb(255, 153, 0);">Edit Record</h2>
+          <h2>Edit Record</h2>
           <div class="form-group">
             <label for="patient-case">PATIENT CASE NUMBER</label>
             <input type="text" id="patient-case" name="patient_cas  eNo" value="<%=editinfo.patient_caseNo %>" required>
@@ -88,7 +88,7 @@
           </div>
         </div>
         <div class="doctor-details-section">
-          <h2 style="color:rgb(255, 153, 0)">Edit Doctor Details</h2>
+          <h2 >Edit Doctor Details</h2>
           <div class="form-group">
             <label for="doctor-name">Doctor's Name</label>
             <input type="text" id="doctor-name" name="doctor_name" value="<%=editinfo.doctor_name %>" required>
@@ -109,7 +109,7 @@
             <label for="doctor-phone">Doctor's Phone Number</label>
             <input type="tel" id="doctor-phone" name="doctor_phone" value="<%=editinfo.doctor_phone %>" pattern="[0-9]{10}" required>
             </div>
-            <button type="submit" class="btn btn-warning " style="background-color:rgb(255, 162, 0)">Edit</button>
+            <button type="submit" class="btn btn-warning ">Edit</button>
         </form>
 
           </div>

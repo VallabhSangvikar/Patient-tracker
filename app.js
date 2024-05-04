@@ -17,8 +17,18 @@ app.use(session({
 
 app.use(flash());
 
+//including the schemas 
+const records=require("./models/records");
+
+const lists = require("./models/doctors");
+
+
+// middlewares
+
 app.use((req,res,next)=>{
   res.locals.edit=req.flash("edit");
+  res.locals.add=req.flash("addrecord");
+  res.locals.exist=req.flash("exist");
   next();
 })
 
@@ -26,6 +36,17 @@ app.use((req,res,next)=>{
   res.locals.remove=req.flash("remove");
   next();
 });
+
+app.use("/doctordetails/:id",async(req,res,next)=>{
+  let {id}=req.params;
+  let doctor=await lists.findById(id);
+  if(doctor && doctor.length !=0){
+    next();
+  }else{
+    let list= await lists.find(); 
+    res.render("doctorslist.ejs",{list,exist:"doctor doesn't exist"});
+  }
+})
 
 // prerequisites for the views and method
 app.use(methodOverride("_method"));
@@ -46,11 +67,6 @@ main()
 async function main() {
   await mongoose.connect('mongodb://127.0.0.1:27017/patient_tracker');
 }
-
-//including the schemas 
-const records=require("./models/records");
-
-const lists = require("./models/doctors");
 
 // routing 
 app.get("/",(req,res)=>{
@@ -82,6 +98,7 @@ app.get("/doctorslist",async(req,res)=>{
 app.get("/doctordetails/:id",async(req,res)=>{
   let {id}= req.params;
   let doctorinfo=await lists.findById(id);
+  req.flash("exist","doctor doesn't exist");
   res.render("doctordetail.ejs",{doctorinfo});
 });
 
@@ -125,7 +142,8 @@ app.post("/dashboard",async(req,res)=>{
       console.log("records data saved successfully");
     })
     let details= await records.find();
-    res.render("dashboard.ejs",{details});
+    req.flash("addrecord","Record added successfully");
+    res.render("dashboard.ejs",{details,add:"Record added successfully"});
 })
 
 app.post("/doctorlist",async(req,res)=>{
