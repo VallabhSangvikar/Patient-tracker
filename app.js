@@ -6,6 +6,9 @@ const methodOverride=require("method-override");
 const session=require("express-session");
 const cookieParser=require("cookie-parser");
 const flash=require("connect-flash");
+const passport=require("passport");
+const LocalStrategy=require("passport-local");
+const User= require("./models/users");
 
 // session requisites
 
@@ -21,6 +24,14 @@ app.use((req,res,next)=>{
   next();
 });
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+ 
 //including the schemas 
 const records=require("./models/records");
 
