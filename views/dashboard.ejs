@@ -17,7 +17,7 @@
       <li><a href="/addrecord"><i class="fas fa-plus"></i>Add Records</a></li>
       <li><a href="/doctors"><i class="fas fa-user-plus"></i>Add Doctor</a></li>
       <li><a href="/doctorslist"><i class="fas fa-user-plus"></i>Doctors list</a></li>
-      <li><a href="/login"><i class="fas fa-history"></i>User Logs</a></li>
+      <li><a href="/signup"><i class="fas fa-history"></i>User Logs</a></li>
       <li><a href="/about"><i class="fas fa-history"></i>About Us</a></li>
     </ul>
   </div>
@@ -27,18 +27,15 @@
 
         <span><b>Entries</b></span>
       </div>
-      <%if(edit && edit.length!=0){ %>
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong><%= edit %></strong> You should check in on some of those fields below.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-      <%}%>
-      <%if(add && add.length!=0){ %>
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-          <strong><%= add %></strong> You should check in on some of those fields below.
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-        <%}%>
+     
+        <% Object.entries(flashes).forEach(([key,value]) => { %>
+          <% if (value && value.length !== 0) { %>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              <strong><%= value %></strong> 
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          <% } %>
+        <% }) %>
       <div class="search-box">
         <input type="text" placeholder="Search...">
       </div>

@@ -27,25 +27,14 @@
         <span><b>Entries</b></span>
        </div>
 
-    <% if (remove && remove.length!=0) { %>
-      <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <%= remove %>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-      <% } %>
-      <% if (addDoctor && addDoctor.length!=0) { %>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
-          <%= addDoctor %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>  
-          <% } %>
-      
-      <% if (exist && exist.length!=0) { %>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <%= exist %>
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+       <% Object.entries(flashes).forEach(([key,value]) => { %>
+        <% if (value && value.length !== 0) { %>
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong><%= value %></strong> You should check in on some of those fields below.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
         <% } %>
+      <% }) %>
       <div class="search-box">
         <input type="text" placeholder="Search...">
       </div>
