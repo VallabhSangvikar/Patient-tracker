@@ -40,12 +40,11 @@ const lists = require("./models/doctors");
 
 // middlewares
 
-app.use((req,res,next)=>{
-  res.locals.edit=req.flash("edit");
-  res.locals.add=req.flash("addrecord");
-  res.locals.exist=req.flash("exist");
+app.use((req, res, next) => {
+  res.locals.flashes = req.flash();
+  console.log(res.locals.flashes);
   next();
-})
+});
 
 app.use((req,res,next)=>{
   res.locals.remove=req.flash("remove");
@@ -85,10 +84,10 @@ async function main() {
 
 // routing 
 app.get("/",(req,res)=>{
-  res.render("login.ejs");
+  res.render("signup.ejs");
 })
-app.get("/login",(req,res)=>{
-  res.render("login.ejs");
+app.get("/signup",(req,res)=>{
+  res.render("signup.ejs");
 })
 app.get("/details/:id",async(req,res)=>{
   let {id}=req.params;
@@ -96,10 +95,11 @@ app.get("/details/:id",async(req,res)=>{
   res.render("details.ejs",{id,recordinfo});
 })
 
-app.get("/dashboard",async(req,res)=>{
-  let details=await records.find();
-  res.render("dashboard.ejs",{details});
-})
+app.get("/dashboard", async (req, res) => {
+  let details = await records.find();
+  res.render("dashboard.ejs", { details});
+});
+
 app.get("/addrecord",(req,res)=>{
   res.render("addRecord.ejs");
 })
@@ -155,10 +155,11 @@ app.post("/dashboard",async(req,res)=>{
     await patient_records.save()
     .then((res)=>{
       console.log("records data saved successfully");
+      req.flash("success","details added successfully");
     })
     let details= await records.find();
-    req.flash("addrecord","Record added successfully");
-    res.render("dashboard.ejs",{details,add:"Record added successfully"});
+    // req.flash("addrecord","doctor details added successfully");
+    res.redirect("/dashboard");
 })
 
 app.post("/doctorlist",async(req,res)=>{
@@ -189,6 +190,17 @@ app.post("/doctorlist",async(req,res)=>{
     res.render("doctorslist.ejs",{list,addDoctor:req.flash("addDoctor")});
 })
 
+app.post("/signup",async(req,res)=>{
+  let {username,email,password}=req.body;
+  const newuser=new User ({
+    username,
+    email
+  });
+  const registeredUser=await User.register(newuser,password);
+  req.flash("success","You registered successfully");
+  res.redirect("/dashboard")
+})
+
 app.delete("/doctorslist/:id",async(req,res)=>{
   let {id}=req.params;
   await lists.findByIdAndDelete(id);
@@ -204,8 +216,6 @@ app.patch("/dashboard/:id",async(req,res)=>{
 });
 
 //remove button alert
-
-
 
 
 app.listen(port,()=>{
