@@ -1,0 +1,29 @@
+const passport=require("passport");
+const LocalStrategy=require("passport-local");
+const User= require("./models/users");
+
+// session requisites
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}));
+app.use(flash());
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.get("/demoUser", async(req,res)=>{
+  let fakeUser= new User({
+    email:"raj.parikh@gmail.com",
+    username:"rajparikh",
+  });
+
+    let registerdUser= await User.register(fakeUser,"helloworldisthe");
+  res.send(registerdUser);
+})
