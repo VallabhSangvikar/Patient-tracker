@@ -42,7 +42,6 @@ const lists = require("./models/doctors");
 
 app.use((req, res, next) => {
   res.locals.flashes = req.flash();
-  console.log(res.locals.flashes);
   next();
 });
 
@@ -122,6 +121,9 @@ app.get("/edit/:id",async(req,res)=>{
   let editinfo=await records.findById(id);
   res.render("editRecord.ejs",{editinfo,id});
 })
+app.get("/login",(req,res)=>{
+  res.render("login.ejs");
+})
 
 app.post("/dashboard",async(req,res)=>{
     let {doctor_name,doctor_gender,doctor_age,
@@ -156,9 +158,8 @@ app.post("/dashboard",async(req,res)=>{
     .then((res)=>{
       console.log("records data saved successfully");
       req.flash("success","details added successfully");
-    })
+    }).catch((e)=>req.flash("error","something went wrong"));
     let details= await records.find();
-    // req.flash("addrecord","doctor details added successfully");
     res.redirect("/dashboard");
 })
 
@@ -191,15 +192,21 @@ app.post("/doctorlist",async(req,res)=>{
 })
 
 app.post("/signup",async(req,res)=>{
-  let {username,email,password}=req.body;
-  const newuser=new User ({
+  try{
+    let {username,email,password}=req.body;
+    const newuser=new User ({
     username,
     email
   });
   const registeredUser=await User.register(newuser,password);
   req.flash("success","You registered successfully");
-  res.redirect("/dashboard")
-})
+  res.redirect("/dashboard");
+  }catch(e){
+    req.flash("err","user already registered, Go to login");
+    res.redirect("/login");
+  }
+  
+});
 
 app.delete("/doctorslist/:id",async(req,res)=>{
   let {id}=req.params;
@@ -215,7 +222,13 @@ app.patch("/dashboard/:id",async(req,res)=>{
   res.redirect("/dashboard");
 });
 
-//remove button alert
+app.post("/login",passport.authenticate("local",{
+  failureRedirect:"/login",
+  failureFlash:true,
+}),async (req,res)=>{
+  req.flash("logged","Welcome back !!"),
+  res.redirect("/dashboard");
+})
 
 
 app.listen(port,()=>{
