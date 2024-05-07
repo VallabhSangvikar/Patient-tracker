@@ -19,10 +19,6 @@ app.use(session({
 }));
 
 app.use(flash());
-app.use((req,res,next)=>{
-  res.locals.addDoctor=req.flash("addDoctor");
-  next();
-});
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -40,15 +36,20 @@ const lists = require("./models/doctors");
 
 // middlewares
 
-app.use((req, res, next) => {
-  res.locals.flashes = req.flash();
+app.use((req,res,next)=>{
+  res.locals.success=req.flash("success");
+  res.locals.error=req.flash("error");
+  res.locals.user=req.user;
   next();
 });
 
-app.use((req,res,next)=>{
-  res.locals.remove=req.flash("remove");
+const LoggedIn=((req,res,next)=>{
+  if(!req.isAuthenticated()){
+    req.flash("error","please login to go further");
+    return res.redirect("/login");
+  }
   next();
-});
+})
 
 app.use("/doctordetails/:id",async(req,res,next)=>{
   let {id}=req.params;
@@ -56,8 +57,13 @@ app.use("/doctordetails/:id",async(req,res,next)=>{
   if(doctor && doctor.length !=0){
     next();
   }else{
-    let list= await lists.find(); 
-    res.render("doctorslist.ejs",{list,exist:"doctor doesn't exist"});
+    try {
+      let list= await lists.find({owner:req.user.id}); 
+      res.render("doctorslist.ejs",{list,error:"doctor doesn't exist"});
+    } catch (error) {
+      req.flash("error","something went wrong");
+      res.redirect("/doctorslist")
+    }
   }
 })
 
@@ -88,41 +94,52 @@ app.get("/",(req,res)=>{
 app.get("/signup",(req,res)=>{
   res.render("signup.ejs");
 })
-app.get("/details/:id",async(req,res)=>{
+app.get("/details/:id",LoggedIn,async(req,res)=>{
   let {id}=req.params;
   let recordinfo=await records.findById(id);
   res.render("details.ejs",{id,recordinfo});
 })
 
-app.get("/dashboard", async (req, res) => {
-  let details = await records.find();
-  res.render("dashboard.ejs", { details});
+app.get("/dashboard",LoggedIn ,async (req, res) => {
+  let details = await records.find({owner:req.user.id});
+  res.render("dashboard.ejs", { details,user:req.user});
 });
 
-app.get("/addrecord",(req,res)=>{
+app.get("/addrecord",LoggedIn,(req,res)=>{
   res.render("addRecord.ejs");
 })
-app.get("/doctors",(req,res)=>{
+app.get("/doctors",LoggedIn,(req,res)=>{
   res.render("addDoctor.ejs");
 })
-app.get("/doctorslist",async(req,res)=>{
-  let list= await lists.find(); 
+app.get("/doctorslist",LoggedIn,async(req,res)=>{
+  let list= await lists.find({owner:req.user.id}); 
+  console.log(list);
   res.render("doctorslist.ejs",{list});
 })
-app.get("/doctordetails/:id",async(req,res)=>{
+app.get("/doctordetails/:id",LoggedIn,async(req,res)=>{
   let {id}= req.params;
   let doctorinfo=await lists.findById(id);
-  req.flash("exist","doctor doesn't exist");
+  req.flash("error","doctor doesn't exist");
   res.render("doctordetail.ejs",{doctorinfo});
 });
 
-app.get("/edit/:id",async(req,res)=>{
+app.get("/edit/:id",LoggedIn,async(req,res)=>{
   let {id}=req.params;
   let editinfo=await records.findById(id);
   res.render("editRecord.ejs",{editinfo,id});
 })
 app.get("/login",(req,res)=>{
   res.render("login.ejs");
+})
+
+app.get("/logout",(req,res)=>{
+  req.logout((err)=>{
+    if(err){
+      next(err);
+    }
+    req.flash("success","You are logged Out!");
+    res.redirect("/login");
+  })
 })
 
 app.post("/dashboard",async(req,res)=>{
@@ -153,18 +170,24 @@ app.post("/dashboard",async(req,res)=>{
       pulse_rate:pulse_rate,
       medication_treatment:medication_treatment,
       physical_number:physical_number,
-    })
-    await patient_records.save()
-    .then((res)=>{
-      console.log("records data saved successfully");
-      req.flash("success","details added successfully");
-    }).catch((e)=>req.flash("error","something went wrong"));
-    let details= await records.find();
-    res.redirect("/dashboard");
+    });
+    try {
+      patient_records.owner=req.user.id;
+      await patient_records.save()
+      .then((res)=>{
+        console.log("records data saved successfully");
+        req.flash("success","details added successfully");
+      }).catch((e)=>req.flash("error","something went wrong"));
+      res.redirect("/dashboard");
+    } 
+    catch (error) {
+      req.flash("error","something went wrong");
+      res.redirect("/dashboard");
+    }
+    
 })
 
 app.post("/doctorlist",async(req,res)=>{
-
     let {hospital_name,doctor_name,age,gender,date_added,
         start_time,end_time,specialization,qualification,
         experience,contact}=req.body;
@@ -182,13 +205,19 @@ app.post("/doctorlist",async(req,res)=>{
       experience:experience,
       contact:contact,
     })
-    await listing.save()
-    .then((res)=>{
-      console.log("doctors list saved successfully");
-    })
-    let list= await lists.find();
-    req.flash("addDoctor","Doctor details added Successfully");
-    res.render("doctorslist.ejs",{list,addDoctor:req.flash("addDoctor")});
+    try {
+      listing.owner=req.user.id;
+      await listing.save()
+      .then((res)=>{
+        console.log("doctors list saved successfully");
+      })
+      req.flash("success","Doctor details added Successfully");
+      res.redirect("/doctorslist");
+    } 
+    catch (error) {
+      req.flash("error","something went wrong");
+      res.redirect("/doctorslist");
+    }
 })
 
 app.post("/signup",async(req,res)=>{
@@ -198,27 +227,33 @@ app.post("/signup",async(req,res)=>{
     username,
     email
   });
-  const registeredUser=await User.register(newuser,password);
-  req.flash("success","You registered successfully");
-  res.redirect("/dashboard");
+    const registeredUser=await User.register(newuser,password);
+    req.login(registeredUser,(err)=>{
+      if(err){
+        return next(err);
+      }
+      req.flash("success","You registered successfully");
+      res.redirect("/dashboard");
+    })
+
   }catch(e){
-    req.flash("err","user already registered, Go to login");
+    req.flash("error","user already registered, Go to login");
     res.redirect("/login");
   }
   
 });
 
-app.delete("/doctorslist/:id",async(req,res)=>{
+app.delete("/doctorslist/:id",LoggedIn,async(req,res)=>{
   let {id}=req.params;
   await lists.findByIdAndDelete(id);
-  req.flash("remove","Removed the doctor's detail successfully");
+  req.flash("success","Removed the doctor's detail successfully");
   res.redirect("/doctorslist");
 });
 
 app.patch("/dashboard/:id",async(req,res)=>{
   let {id}=req.params;
   await records.findByIdAndUpdate(id,req.body);
-  req.flash("edit","Edited details successfully");
+  req.flash("success","Edited details successfully");
   res.redirect("/dashboard");
 });
 
@@ -226,7 +261,7 @@ app.post("/login",passport.authenticate("local",{
   failureRedirect:"/login",
   failureFlash:true,
 }),async (req,res)=>{
-  req.flash("logged","Welcome back !!"),
+  req.flash("success","Welcome back !!"),
   res.redirect("/dashboard");
 })
 

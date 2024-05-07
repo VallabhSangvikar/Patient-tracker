@@ -63,6 +63,10 @@ const recordsSchema = new Schema({
     },
     physical_number:{
         type:Number
+    },
+    owner:{
+        type:Schema.Types.ObjectId,
+        ref:"User"
     }
 })
 

@@ -8,14 +8,18 @@
   <link rel="stylesheet" href="/css/signup.css">
 </head>
 <body>
-  <% Object.entries(flashes).forEach(([key,value]) => { %>
-    <% if (value && value.length !== 0) { %>
-      <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-top: 10px;">
-        <strong><%= value %></strong> 
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    <% } %>
-  <% }) %>
+  <% if (success && success.length !== 0) { %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+      <strong><%= success %></strong> 
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+  <% if (error && error.length !== 0) { %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-top: 10px;">
+      <strong><%= error %></strong> 
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
   <div class="container" >
     <h2>Patient Record Management System</h2>
     <form method="post" action="/login" class="needs-validation" novalidate>
