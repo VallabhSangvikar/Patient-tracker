@@ -98,7 +98,7 @@ const transporter = nodemailer.createTransport({
   }
 });
 const token = jwt.sign({ data: 'Token Data' }, process.env.JWT_SECRET, { expiresIn: '5m' });
-const verifycode=Math.floor((Math.random()*10000))+100000;
+const verifycode=Math.floor((Math.random()*1000000))+100000;
 const emailTemplate = `
 <html>
   <body>
@@ -173,24 +173,8 @@ app.get("/login",(req,res)=>{
   res.render("login.ejs");
 })
 app.get("/verify",(req,res)=>{
-  
-  res.send("email sent to "+mail);
+  res.render("verify.ejs")
 })
-
-app.get('/verify/:token', (req, res)=>{ 
-  const {token} = req.params; 
-
-  // Verifying the JWT token  
-  jwt.verify(token, 'ourSecretKey', function(err, decoded) { 
-      if (err) { 
-          console.log(err); 
-          res.send("Email verification failed, possibly the link is invalid or expired"); 
-      } 
-      else { 
-          res.send("Email verifified successfully"); 
-      } 
-  }); 
-}); 
 
 
 app.get("/logout",(req,res)=>{
@@ -282,30 +266,44 @@ app.post("/doctorlist",async(req,res)=>{
 })
 
 app.post("/signup",async(req,res)=>{
-  try{
-    let {username,email,password}=req.body;
-    const newuser=new User ({
-    username,
-    email
-  });
-    let mail=req.body.email;
-    sendVerificationEmail(mail);
+  
+    let {email,username,password}=req.body;
 
-    const registeredUser=await User.register(newuser,password);
-    req.login(registeredUser,(err)=>{
-      if(err){
-        return next(err);
-      }
-      res.send("please verify your email to go further");
-      req.flash("success","You registered successfully");
-    })
+    sendVerificationEmail(email);
 
-  }catch(e){
-    req.flash("error","user already registered, Go to login");
-    res.redirect("/login");
-  }
+      req.flash("success","verify your email here by entering the verification code");
+      res.render("verify.ejs",{email,username,password});
   
 });
+app.post("/verify",async(req,res)=>{
+  let verify=parseInt(req.body.verificationcode)
+  if(verifycode===verify){
+    try{
+      let {username,email,password}=req.body;
+      const newuser=new User ({
+      username,
+      email
+    });
+
+      const registeredUser=await User.register(newuser,password);
+
+      req.login(registeredUser,(err)=>{
+        if(err){
+          return next(err);
+        }
+        req.flash("success","Successfully registered");
+        res.redirect("/dashboard");
+      })
+
+    }catch(e){
+      req.flash("error","user already registered, Go to login");
+      res.redirect("/login");
+    }
+  }  else{
+    req.flash("error","enter a valid verification code");
+    res.redirect("/signup");
+  }
+})
 
 app.delete("/doctorslist/:id",LoggedIn,async(req,res)=>{
   let {id}=req.params;

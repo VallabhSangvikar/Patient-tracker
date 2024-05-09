@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>pleade verify your email address</h1>
+    <form action="/verify" method="post">
+        enter your verification code here :&nbsp;
+        <input type="text" name="verificationcode"><br>
+        <input type="hidden" name="email" value="<%=email%>">
+        <input type="hidden" name="password" value="<%=password%>" >
+        <input type="hidden" name="username" value="<%=username%>" >
+        <button type="submit">submit</button>
+    </form>
+</body>
+</html>
