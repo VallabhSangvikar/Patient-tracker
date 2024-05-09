@@ -113,7 +113,6 @@ app.get("/doctors",LoggedIn,(req,res)=>{
 })
 app.get("/doctorslist",LoggedIn,async(req,res)=>{
   let list= await lists.find({owner:req.user.id}); 
-  console.log(list);
   res.render("doctorslist.ejs",{list});
 })
 app.get("/doctordetails/:id",LoggedIn,async(req,res)=>{
@@ -242,6 +241,7 @@ app.post("/signup",async(req,res)=>{
   }
   
 });
+
 
 app.delete("/doctorslist/:id",LoggedIn,async(req,res)=>{
   let {id}=req.params;
