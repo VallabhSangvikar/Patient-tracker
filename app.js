@@ -9,7 +9,9 @@ const flash=require("connect-flash");
 const passport=require("passport");
 const LocalStrategy=require("passport-local");
 const User= require("./models/users");
-
+const nodemailer = require('nodemailer');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 // session requisites
 
 app.use(session({
@@ -87,6 +89,45 @@ async function main() {
   await mongoose.connect('mongodb://127.0.0.1:27017/patient_tracker');
 }
 
+//email verification
+const transporter = nodemailer.createTransport({
+  service: 'vallabhdsangvikar18@gmail.com', // Change this to your email service provider
+  auth: {
+    user: process.env.EMAIL_USERNAME,
+    pass: process.env.EMAIL_PASSWORD
+  }
+});
+const token = jwt.sign({ data: 'Token Data' }, process.env.JWT_SECRET, { expiresIn: '5m' });
+const verifycode=Math.floor((Math.random()*1000000))+100000;
+const emailTemplate = `
+<html>
+  <body>
+    <h1>Email Verification</h1>
+    <p>Hi there!</p>
+    <p>You have recently visited our website and entered your email. This is your verification code :</p>
+    <h2>${verifycode}</h2>
+    <p>Thanks!</p>
+  </body>
+</html>
+`;
+const mailOptions = {
+  from: process.env.EMAIL_SENDER,
+   // Replace with the user's email
+  subject: 'Email Verification',
+  html: emailTemplate // Use HTML template for better formatting
+};
+async function sendVerificationEmail(email) {
+  try {
+    mailOptions.to=email;
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Email sent:', info.response);
+  } catch (error) {
+    console.error('Error sending email:', error);
+    // Handle error appropriately (e.g., return error message, retry, etc.)
+  }
+}
+
+
 // routing 
 app.get("/",(req,res)=>{
   res.render("signup.ejs");
@@ -130,6 +171,10 @@ app.get("/edit/:id",LoggedIn,async(req,res)=>{
 app.get("/login",(req,res)=>{
   res.render("login.ejs");
 })
+app.get("/verify",(req,res)=>{
+  res.render("verify.ejs")
+})
+
 
 app.get("/logout",(req,res)=>{
   req.logout((err)=>{
@@ -220,27 +265,44 @@ app.post("/doctorlist",async(req,res)=>{
 })
 
 app.post("/signup",async(req,res)=>{
-  try{
-    let {username,email,password}=req.body;
-    const newuser=new User ({
-    username,
-    email
-  });
-    const registeredUser=await User.register(newuser,password);
-    req.login(registeredUser,(err)=>{
-      if(err){
-        return next(err);
-      }
-      req.flash("success","You registered successfully");
-      res.redirect("/dashboard");
-    })
+  
+    let {email,username,password}=req.body;
 
-  }catch(e){
-    req.flash("error","user already registered, Go to login");
-    res.redirect("/login");
-  }
+    sendVerificationEmail(email);
+
+      req.flash("success","verify your email here by entering the verification code");
+      res.render("verify.ejs",{email,username,password});
   
 });
+app.post("/verify",async(req,res)=>{
+  let verify=parseInt(req.body.verificationcode)
+  if(verifycode===verify){
+    try{
+      let {username,email,password}=req.body;
+      const newuser=new User ({
+      username,
+      email
+    });
+
+      const registeredUser=await User.register(newuser,password);
+
+      req.login(registeredUser,(err)=>{
+        if(err){
+          return next(err);
+        }
+        req.flash("success","Successfully registered");
+        res.redirect("/dashboard");
+      })
+
+    }catch(e){
+      req.flash("error","user already registered, Go to login");
+      res.redirect("/login");
+    }
+  }  else{
+    req.flash("error","enter a valid verification code");
+    res.redirect("/signup");
+  }
+})
 
 
 app.delete("/doctorslist/:id",LoggedIn,async(req,res)=>{
@@ -264,7 +326,6 @@ app.post("/login",passport.authenticate("local",{
   req.flash("success","Welcome back !!"),
   res.redirect("/dashboard");
 })
-
 
 app.listen(port,()=>{
     console.log(`server is running `);
