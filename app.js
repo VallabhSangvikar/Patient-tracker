@@ -77,7 +77,7 @@ app.set("view engine","ejs");
 app.set(path.join(__dirname,"views"));
 
 app.use(express.static(path.join(__dirname,"public")));
-
+const MongoUrl=process.env.ATLAS_URL
 // applying the mongoose section 
 const mongoose = require('mongoose');
 
@@ -86,12 +86,12 @@ main()
 .catch(err => console.log(err));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/patient_tracker');
+  await mongoose.connect(MongoUrl);
 }
 
 //email verification
 const transporter = nodemailer.createTransport({
-  service: 'vallabhdsangvikar18@gmail.com', // Change this to your email service provider
+  service: 'codecrafters.alliance@gmail.com', // Change this to your email service provider
   auth: {
     user: process.env.EMAIL_USERNAME,
     pass: process.env.EMAIL_PASSWORD
@@ -175,9 +175,13 @@ app.get("/login",(req,res)=>{
   res.render("login.ejs");
 })
 app.get("/verify",(req,res)=>{
-  res.render("verify.ejs")
+  if(!req.user){
+    res.render("verify.ejs")
+  }else{
+    req.flash("error","you already logged in")
+    res.redirect("/dashboard");
+  }
 })
-
 
 app.get("/logout",(req,res)=>{
   req.logout((err)=>{
