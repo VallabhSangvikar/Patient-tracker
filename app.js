@@ -140,6 +140,9 @@ app.get("/details/:id",LoggedIn,async(req,res)=>{
   let recordinfo=await records.findById(id);
   res.render("details.ejs",{id,recordinfo});
 })
+app.get("/about",LoggedIn,(req,res)=>{
+  res.render("about.ejs");
+})
 
 app.get("/dashboard",LoggedIn ,async (req, res) => {
   let details = await records.find({owner:req.user.id});
