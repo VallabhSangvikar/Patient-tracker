@@ -13,7 +13,7 @@ body {
 /* Sidebar styles */
 .sidebar {
   width: 250px;
-  background-color: #00b050;
+  background-color: #518696;
   color: #fff;
   padding: 20px;
   position: fixed;
@@ -51,7 +51,7 @@ h3{
 
 .sidebar-menu a:hover,
 .sidebar-menu a.active {
-  background-color: #008037;
+  background-color: #3f93b1;
 }
 
 .sidebar-menu a i {
@@ -61,6 +61,8 @@ h3{
 
 /* Content styles */
 .content {
+  background-image: url('../images/img4.png');
+  background-size:cover;
   flex: 1;
   padding: 20px;
   margin-left: 250px; /* Add this line to create space for the sidebar */

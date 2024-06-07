@@ -14,7 +14,7 @@
     /* Sidebar styles */
     .sidebar {
       width: 250px;
-      background-color: #00b050;
+      background-color: #518696;
       color: #fff;
       padding: 20px;
       position: fixed;
@@ -52,7 +52,7 @@
 
     .sidebar-menu a:hover,
     .sidebar-menu a.active {
-      background-color: #008037;
+      background-color: #3f93b1;
     }
 
     .sidebar-menu a i {
@@ -66,6 +66,8 @@
       flex: 1;
       display: flex;
       flex-direction: column;
+      background-image: url('../images/img2.jpg');
+      background-size:cover;
     }
 
     .table-header {

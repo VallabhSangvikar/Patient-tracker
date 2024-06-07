@@ -10,12 +10,13 @@
         background-color: #f2f2f2;
         display: flex;
         min-height: 100vh;
+        color: black;
     }
     
     /* Sidebar styles */
     .sidebar {
         width: 250px;
-        background-color: #00b050;
+        background-color: #518696;
         color: #fff;
         padding: 20px;
         position: fixed;
@@ -54,7 +55,7 @@
     
     .sidebar-menu a:hover,
     .sidebar-menu a.active {
-        background-color: #008037;
+        background-color: #3f93b1;
     }
     
     .sidebar-menu a i {
@@ -63,6 +64,8 @@
     
     /* Content styles */
     .content {
+        background-image: url("../images/img1.jpg");
+        background-size: cover;
         margin-left: 250px;
         padding: 20px;
         flex: 1;
@@ -71,15 +74,18 @@
     }
     
     .about-container {
-        background-color: #fff;
+        
+        background-color: #ffffff6f;
         padding: 20px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         border-radius: 5px;
+        backdrop-filter: blur(4px);
     }
+
     
     .about-container h2,
     .about-container h3 {
-        color: #00b050;
+        color: #3f93b1;
         margin-bottom: 10px;
     }
     

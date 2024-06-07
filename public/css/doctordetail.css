@@ -15,7 +15,7 @@ min-height: 100vh; /* Add this line */
 /* Sidebar styles */
 .sidebar {
 width: 250px;
-background-color: #00b050;
+background-color: #518696;
 color: #fff;
 padding: 20px;
 position: fixed;
@@ -58,7 +58,7 @@ transition: all 0.3s ease;
 
 .sidebar-link:hover,
 .sidebar-link.active {
-background-color: #008037;
+background-color: #3f93b1;
 }
 
 .sidebar-link i {
@@ -142,7 +142,7 @@ background-color: #e9e9e9;
 h2 {
 margin-bottom: 20px;
 color: white;
-background-color: green;
+background-color: #3f93b1;
 padding: 10px;
 border-radius: 3px;
 }
@@ -195,5 +195,5 @@ margin-left: 10px;
 }
 
 .value{
-    color: #008037;
+    color: #3f93b1;
 }
