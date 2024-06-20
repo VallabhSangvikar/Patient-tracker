@@ -6,7 +6,6 @@
 }
 
 body {
-  background-color: #f2f2f2;
   display: flex;
   background-image: url('../images/img4.png');
   background-size:cover;
@@ -64,10 +63,14 @@ font-size: 18px;
 
 /* Content styles */
 .content {
-  
+  background-color: #3d3d3db2;
+  margin-top: 20px;
+  margin-bottom: 20px;
 margin-left: 270px; /* Add space for the sidebar */
-padding: 20px;
+padding: 20px 50px;
 max-width: 900px; /* Increase the maximum width */
+color: white;
+border-radius: 5px;
 }
 
 h2 {

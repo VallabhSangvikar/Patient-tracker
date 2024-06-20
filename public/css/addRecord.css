@@ -138,3 +138,8 @@ textarea {
   border-radius: 3px;
   cursor: pointer;
 }
+.content-wrapper{
+  background-color: rgba(0, 0, 0, 0.333);
+  padding: 20px;
+  border-radius: 5px;
+}
