@@ -20,6 +20,7 @@ app.use(session({
   saveUninitialized: true
 }));
 
+
 app.use(flash());
 
 app.use(passport.initialize());
