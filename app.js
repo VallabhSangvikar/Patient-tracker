@@ -14,6 +14,7 @@ const jwt = require('jsonwebtoken');
 require('dotenv').config();
 // session requisites
 
+
 app.use(session({
   secret: process.env.SECRET,
   resave: false,
